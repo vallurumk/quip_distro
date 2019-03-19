@@ -36,7 +36,7 @@ services:
     logging:
       driver: none
     volumes:
-      - ./images/:/images/
+      - ./images/:/data/images/
   viewer:
     build: "https://github.com/camicroscope/caMicroscope.git#develop"
     container_name: ca-front
@@ -71,4 +71,8 @@ services:
     volumes:
       - ./data:/data/
       - ./images/:/data/pathdb/files/wsi
+      - ./jwt_keys/:/keys/
+      - ./config:/config
+    command:
+      - /config/pathdb_pre.sh
 

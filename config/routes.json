@@ -1,14 +1,8 @@
 {
   "root":"http://ca-front:80/",
   "_root_public": "true",
-  "auth":{
-    "elevate_url":"http://ca-auth:8010/check",
-    "elevate_ok":{"mode": "status"},
-    "attr_suffix":"?attr="
-  },
   "services":{
     "data":{
-      "_public": "true",
       "_base": "http://ca-data:9099/services/caMicroscope",
       "Mark": {
         "get":"/Mark/query/get",
@@ -22,6 +16,7 @@
       "Heatmap": {
         "get":"/Heatmap/query/get",
         "find":"/Heatmap/query/find",
+        "types":"/Heatmap/query/findTypes",
         "post":{"path": "/Heatmap/submit/json", "attr": "write"},
         "delete":{"path": "/Heatmap/delete/deleteHeatmap", "attr": "write"}
       },
@@ -46,6 +41,7 @@
       }
     },
     "img": {
+      "_public": "true",
       "_base":"http://ca-iip/fcgi-bin/iipsrv.fcgi",
       "IIP": {
         "raw":""
@@ -53,8 +49,8 @@
       "Slide":{
         "_resolver":{
           "destination":"?DeepZoom={OUT}",
-          "url":"http://ca-data:9099/services/caMicroscope/Slide/query/get?id={IN}",
-          "field":"location",
+          "url": "http://ca-pathdb/node/{IN}?_format=json",
+          "field":"field_iip_path[0].value",
           "before":["_files", ".dzi"]
         }
       }
@@ -70,6 +66,15 @@
         "info":"/data/one",
         "thumb":"/data/thumbnail"
       }
+    },
+    "pathdb":{
+      "_public": "true",
+      "_base": "http://quip-pathdb/",
+      "slide":{
+        "info":"/node/",
+        "unmod":""
+      }
     }
   }
 }
+
