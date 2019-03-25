@@ -1,5 +1,5 @@
 {
-  "root":"http://ca-front:80/",
+  "root":"http://vinculum.bmi.stonybrookmedicine.edu:8777/",
   "_root_public": "true",
   "services":{
     "data":{
